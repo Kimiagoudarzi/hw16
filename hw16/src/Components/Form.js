@@ -1,5 +1,6 @@
 import React,{ Component } from "react";
 import "./form.css";
+import Card from './Card';
 
 const style = {display: 'flex', gap: 10, alignItems: 'center'};
 let defaultError = true;
@@ -13,6 +14,7 @@ const initialState = {
     PhoneNumberError: '',
     email: '',
     emailError: '',
+    contact : [],
   };
 
 class Form extends Component {
@@ -121,6 +123,7 @@ validatePhoneNumber= () => {
                 
                 <input type="submit" value="Add" disabled={!isValid || defaultError}/>
                 </form>
+                <Card/>
             </div>
          );
     }
