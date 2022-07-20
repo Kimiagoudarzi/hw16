@@ -14,16 +14,19 @@ const initialState = {
     PhoneNumberError: '',
     email: '',
     emailError: '',
-    contact : [],
+    contacts : [],
   };
 
 class Form extends Component {
     constructor() {
     super();
-    this.state= initialState;
-
+    this.state= initialState      
 }
-componentDidMount() {
+createCard =()=>{
+    let contact = '' ;
+    this.setState({contacts:[...this.state.contacts,contact]});
+}
+componentDidMount =() => {
     defaultError= false;
 }
     
@@ -92,38 +95,40 @@ validatePhoneNumber= () => {
         const isValid = firstNameError === '' && emailError === '' && PhoneNumberError === ''  && lastNameError === '';
         return ( 
             <div className="container">
-                <form onSubmit={this.handleSubmit}>
-                <div className="title"><h1>Contact management<br/> web application</h1></div>    
-                <div style={style}>
-                    <input name="firstName" placeholder="first name" value={firstName} onChange={this.handleChange}/><span className="error-message">*</span>
-                </div>
-                <div className='error-message'>{firstNameError}</div>
+                <form>
+                    <div className="title"><h1>Contact management<br/>web application</h1></div>    
+                    <div style={style}>
+                        <input name="firstName" placeholder="first name" value={firstName} onChange={this.handleChange}/><span className="error-message">*</span>
+                    </div>
+                    <div className='error-message'>{firstNameError}</div>
 
-                <div style={style}>
-                    <input name="lastName" placeholder="last name" value={lastName} onChange={this.handleChange}/><span className="error-message">*</span>
-                </div>
-                <div className='error-message'>{lastNameError}</div>
+                    <div style={style}>
+                        <input name="lastName" placeholder="last name" value={lastName} onChange={this.handleChange}/><span className="error-message">*</span>
+                    </div>
+                    <div className='error-message'>{lastNameError}</div>
 
-                <div style={style}><input name="PhoneNumber" placeholder="Phone number"  value={PhoneNumber} onChange={this.handleChange}/><span className="error-message">*</span></div>
-                <div className='error-message'>{PhoneNumberError}</div>
+                    <div style={style}>
+                        <input name="PhoneNumber" placeholder="Phone number"  value={PhoneNumber} onChange={this.handleChange}/><span className="error-message">*</span>
+                    </div>
+                    <div className='error-message'>{PhoneNumberError}</div>
 
-                {/* <div style={style}>
-                <select id="Relation">
-                    <option value="family">family</option>
-                    <option value="friend">friend</option>
-                    <option value="teammate">teammate</option>
-                </select>
-                </div>
-                <div className='error-message'>{selectorError}</div> */}
+                    {/* <div style={style}>
+                    <select id="Relation">
+                        <option value="family">family</option>
+                        <option value="friend">friend</option>
+                        <option value="teammate">teammate</option>
+                    </select>
+                    </div>
+                    <div className='error-message'>{selectorError}</div> */}
 
-                <div style={style}>
-                    <input name="email" placeholder="email" value={email} onChange={this.handleChange}/><span className="error-message">*</span>
-                </div>
-                <div className='error-message'>{emailError}</div>
-                
-                <input type="submit" value="Add" disabled={!isValid || defaultError}/>
+                    <div style={style}>
+                        <input name="email" placeholder="email" value={email} onChange={this.handleChange}/><span className="error-message">*</span>
+                    </div>
+                    <div className='error-message'>{emailError}</div>
+                    
+                    <input type="submit" value="Add" disabled={!isValid || defaultError} onClick={this.createCard}/>
                 </form>
-                <Card/>
+                <Card contacts={this.state.contacts}/>
             </div>
          );
     }
