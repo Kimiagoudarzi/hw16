@@ -1,17 +1,27 @@
-import React, { Component } from "react";
-import './card.css';
+// import { useState } from 'react';
+import Card from 'react-bootstrap/Card';
 
-class Card extends Component {
-    state ={}
-    render() { 
-        return ( 
-            <div className="box  blue">
-                {this.props.contacts.map((item) => 
-                    <div className="box blue">{item}</div>
-                )}
-            </div> 
-         );
-    }
+
+
+function BgColorExample(props) {
+    // const [show,setShow] = useState(false);
+  return (
+    <>
+      {['Info'].map((variant) => (
+        <Card bg={variant.toLowerCase()} key={variant} text={variant.toLowerCase() === 'light' ? 'dark' : 'white'} style={{ width: '18rem' }} className="mb-2">
+          <Card.Header>
+          {/* <FontAwesomeIcon icon="fa-solid fa-trash" /> */}
+          </Card.Header>
+          <Card.Body>
+            <Card.Title>{props.contact.firstName} {props.contact.lastName}</Card.Title>
+            <Card.Text>{props.contact.selected}</Card.Text>
+            <Card.Text>{props.contact.PhoneNumber}</Card.Text>
+            <Card.Text>{props.contact.email}</Card.Text>
+          </Card.Body>
+        </Card>
+      ))}
+    </>
+  );
 }
- 
-export default Card;
+
+export default BgColorExample;

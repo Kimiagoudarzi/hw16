@@ -14,18 +14,17 @@ const initialState = {
     PhoneNumberError: '',
     email: '',
     emailError: '',
+    selected:'',
     contacts : [],
   };
 
 class Form extends Component {
     constructor() {
     super();
-    this.state= initialState      
+    this.state= initialState;      
 }
-createCard =()=>{
-    let contact = '' ;
-    this.setState({contacts:[...this.state.contacts,contact]});
-}
+
+
 componentDidMount =() => {
     defaultError= false;
 }
@@ -89,13 +88,20 @@ validatePhoneNumber= () => {
     }
 }
 
+handleSubmit=(e)=>{
+    e.preventDefault();
+    const {firstName,lastName,email,PhoneNumber,selected} = this.state;
+    this.setState({contacts:[...this.state.contacts,{firstName,lastName,email,PhoneNumber,selected}]})
+console.log(this.state)
+}
+
 
     render() { 
-        const {firstName, lastName, PhoneNumber,email, firstNameError,lastNameError, PhoneNumberError,emailError} = this.state;
+        const {firstName, lastName, PhoneNumber,email, firstNameError,lastNameError, PhoneNumberError,emailError,selected} = this.state;
         const isValid = firstNameError === '' && emailError === '' && PhoneNumberError === ''  && lastNameError === '';
         return ( 
             <div className="container">
-                <form>
+                <form onSubmit={this.handleSubmit}>
                     <div className="title"><h1>Contact management<br/>web application</h1></div>    
                     <div style={style}>
                         <input name="firstName" placeholder="first name" value={firstName} onChange={this.handleChange}/><span className="error-message">*</span>
@@ -112,24 +118,29 @@ validatePhoneNumber= () => {
                     </div>
                     <div className='error-message'>{PhoneNumberError}</div>
 
-                    {/* <div style={style}>
-                    <select id="Relation">
+                    <div style={style}>
+                    <select id="select" value={selected} name="selected" aria-label="Default select example" onChange={this.handleChange} required>
+                        <option value=""  selected disabled>Relation</option>
                         <option value="family">family</option>
                         <option value="friend">friend</option>
                         <option value="teammate">teammate</option>
                     </select>
+                    <span className="error-message">*</span>
                     </div>
-                    <div className='error-message'>{selectorError}</div> */}
+
+                    
 
                     <div style={style}>
                         <input name="email" placeholder="email" value={email} onChange={this.handleChange}/><span className="error-message">*</span>
                     </div>
                     <div className='error-message'>{emailError}</div>
                     
-                    <input type="submit" value="Add" disabled={!isValid || defaultError} onClick={this.createCard}/>
+                    <input type="submit" value="Add" disabled={!isValid || defaultError} />
                 </form>
-                <Card contacts={this.state.contacts}/>
-            </div>
+                {this.state.contacts.map(item=>{
+                    return <Card contact={item}/>
+                })}
+            </div>    
          );
     }
 }
