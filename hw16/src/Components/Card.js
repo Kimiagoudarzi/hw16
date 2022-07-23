@@ -1,16 +1,21 @@
-// import { useState } from 'react';
+import { useState } from 'react';
 import Card from 'react-bootstrap/Card';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 
 
 function BgColorExample(props) {
-    // const [show,setShow] = useState(false);
+    const [show,setShow] = useState(false);
+    const handleModal = () =>{
+      setShow({show:true})
+}
+    
   return (
     <>
-      {['Info'].map((variant) => (
-        <Card bg={variant.toLowerCase()} key={variant} text={variant.toLowerCase() === 'light' ? 'dark' : 'white'} style={{ width: '18rem' }} className="mb-2">
+      {['dark'].map((variant) => (
+        <Card bg={variant.toLowerCase()} key={variant} text={variant.toLowerCase() === 'light' ? 'dark' : 'white'} style={{ width: '16rem' }} className="mb-2">
           <Card.Header>
-          {/* <FontAwesomeIcon icon="fa-solid fa-trash" /> */}
+            <button onClick={handleModal}><FontAwesomeIcon icon={faTrash} /></button>
           </Card.Header>
           <Card.Body>
             <Card.Title>{props.contact.firstName} {props.contact.lastName}</Card.Title>

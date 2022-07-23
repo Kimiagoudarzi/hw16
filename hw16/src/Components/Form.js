@@ -92,7 +92,7 @@ handleSubmit=(e)=>{
     e.preventDefault();
     const {firstName,lastName,email,PhoneNumber,selected} = this.state;
     this.setState({contacts:[...this.state.contacts,{firstName,lastName,email,PhoneNumber,selected}]})
-console.log(this.state)
+
 }
 
 
